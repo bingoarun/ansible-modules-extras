@@ -21,7 +21,7 @@
 DOCUMENTATION = '''
 ---
 module: ciscospark
-version_added: "2.1"
+version_added: "2.2"
 short_description: Send a message to Cisco Spark room
 description:
    - Send a message to Cisco Spark room
@@ -63,6 +63,13 @@ EXAMPLES = '''
     token: eUfFpFWeOjOlOdScWATeeUfFpFWeOjOlOdScWATeeUfFpFWeOjOlOdScWATe
     personEmail: example@cisco.com
     msg: "Hi there !!"
+'''
+
+RETURN = '''
+result:
+  description: Returns the json output of the post message call.
+  returned: changed
+  type: dict
 '''
 
 # ===========================================
@@ -138,9 +145,9 @@ def main():
     msg = module.params["msg"]
     personId = module.params["personId"]
     personEmail = module.params["personEmail"]
-    send_msg_v1(module, token, room, msg, personId, personEmail)
+    result = send_msg_v1(module, token, room, msg, personId, personEmail)
     changed = True
-    module.exit_json(changed=changed, msg="OK")
+    module.exit_json(changed=changed, result=result)
 
 # import module snippets
 from ansible.module_utils.basic import *
